@@ -1,17 +1,45 @@
 <template>
+
   <div class="container">
     <div class="form-container">
       <p>Login</p>
-      <form class="form">
+      <form @submit="login" class="form">
           <label>Usuário</label>
-          <input type="text" class="input" placeholder="Usuário">
+          <input type="text" class="input" placeholder="Usuário" v-model="username">
           <label>Senha</label>
-          <input type="password" class="input" placeholder="Senha"> 
+          <input type="password" class="input" placeholder="Senha" v-model="password"> 
           <button type="submit">Entrar</button>
       </form>
     </div>
   </div>
+
 </template>
+
+<script>
+
+export default{
+  data() {
+    return {
+      username: '',
+      password: ''
+    };
+  },
+
+  methods: {
+    login() {
+      if (this.username === 'admin' && this.password === '123') {
+        // Redirecionar para a tela Home
+        this.$router.push('/home');
+      } else {
+        // Exibir uma mensagem de erro de login inválido
+        alert('Credenciais inválidas');
+      }
+    }
+  }
+
+}
+
+</script>
 
 <style scoped>
 

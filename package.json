@@ -1,0 +1,16 @@
+{
+    "name": "docpower-web",
+    "version": "1.0.0",
+    "main": "app/api/server.js",
+    "scripts": {
+      "api": "node app/api/server.js",
+      "web": "cd app/web && npm run dev",
+      "start": "concurrently \"npm run api\" \"npm run web\""
+    },
+    "dependencies": {
+      "concurrently": "^6.0.2",
+      "express": "^4.17.1",
+      "mysql2": "^2.3.0"
+    }
+  }
+  
