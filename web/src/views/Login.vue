@@ -1,23 +1,21 @@
 <template>
-
   <div class="container">
     <div class="form-container">
       <p>Login</p>
-      <form @submit="login" class="form">
-          <label>Usuário</label>
-          <input type="text" class="input" placeholder="Usuário" v-model="username">
-          <label>Senha</label>
-          <input type="password" class="input" placeholder="Senha" v-model="password"> 
-          <button type="submit">Entrar</button>
+      <form @submit.prevent="login" class="form">
+        <label>Usuário</label>
+        <input type="text" class="input" placeholder="Usuário" v-model="username">
+        <label>Senha</label>
+        <input type="password" class="input" placeholder="Senha" v-model="password">
+        <button type="submit">Entrar</button>
       </form>
     </div>
   </div>
-
 </template>
 
 <script>
 
-export default{
+export default {
   data() {
     return {
       username: '',
@@ -28,7 +26,7 @@ export default{
   methods: {
     login() {
       // Consulta ao servidor
-      fetch('/api/login', {
+      fetch(' http://localhost:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -38,19 +36,19 @@ export default{
           password: this.password
         })
       })
-      .then(response => {
-        if (response.ok) {
-          // Redirecionar para a tela Home
-          this.$router.push('/home');
-        } else {
-          // Exibir mensagem de erro
-          alert('Credenciais inválidas');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        alert('Erro no servidor');
-      });
+        .then(response => {
+          if (response.ok) {
+            // Redirecionar para a tela Home
+            this.$router.push('/home');
+          } else {
+            // Exibir mensagem de erro
+            alert('Credenciais inválidas');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Erro no servidor');
+        });
     }
   }
 }
@@ -58,8 +56,7 @@ export default{
 </script>
 
 <style scoped>
-
-.container{
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +68,7 @@ export default{
 
 .form-container {
   width: 300px;
-  background: linear-gradient(180deg,rgb(13, 27, 64) 25%,rgb(255, 255, 255) 20%);
+  background: linear-gradient(180deg, rgb(13, 27, 64) 25%, rgb(255, 255, 255) 20%);
   height: 400px;
   display: flex;
   flex-direction: column;
