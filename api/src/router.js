@@ -1,7 +1,5 @@
 import { Router } from "express";
 import { UserController } from "./controllers/UserController.js";
-import { ValidarUsuario } from "./middlewares/ValidarUsuario.js";
-import { ReservaController } from "./controllers/ReservaController.js";
 
 const route = Router();
 
@@ -19,19 +17,9 @@ route.use('/api/vr', async (request, response, next) => {
 })
 
 const userController = new UserController
-const reservaController = new ReservaController
 
 route.post('/api/login', userController.Auth)
 route.post('/api/register', userController.Register)
-
-route.get('/api/vr/validar_usuario', (req, res) => {
-    return res.json({
-        message: "Usuário valido!",
-    })
-})
-
-route.post('/api/vr/reservas', reservaController.InserirReserva);
-route.get('/api/vr/reservas', reservaController.GetReservas);
 
 
 export { route }
