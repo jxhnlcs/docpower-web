@@ -25,8 +25,6 @@ export default{
     };
   },
 
-  // Login.vue
-
   methods: {
     login() {
       // Consulta ao servidor
