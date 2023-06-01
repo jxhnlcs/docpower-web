@@ -7,5 +7,10 @@ export default createRouter({
       path: '/',
       component: () => import('../views/Login.vue'),
     },
+
+    {
+      path: '/home',
+      component: () => import('../views/Home.vue'),
+    },
   ],
 })
