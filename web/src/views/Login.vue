@@ -25,18 +25,36 @@ export default{
     };
   },
 
+  // Login.vue
+
   methods: {
     login() {
-      if (this.username === 'admin' && this.password === '123') {
-        // Redirecionar para a tela Home
-        this.$router.push('/home');
-      } else {
-        // Exibir uma mensagem de erro de login inválido
-        alert('Credenciais inválidas');
-      }
+      // Consulta ao servidor
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          // Redirecionar para a tela Home
+          this.$router.push('/home');
+        } else {
+          // Exibir mensagem de erro
+          alert('Credenciais inválidas');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert('Erro no servidor');
+      });
     }
   }
-
 }
 
 </script>

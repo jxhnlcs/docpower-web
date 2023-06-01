@@ -14,24 +14,24 @@ const db = mysql.createConnection({
 
 // Rota para o login
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  // Consulta ao banco de dados
-  db.query(
-    'SELECT * FROM users WHERE username = ? AND password = ?',
-    [username, password],
-    (err, results) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Erro no servidor' });
-      } else if (results.length === 0) {
-        res.status(401).json({ message: 'Credenciais inválidas' });
-      } else {
-        res.json({ message: 'Login bem-sucedido' });
+    const { username, password } = req.body;
+  
+    // Consulta ao banco de dados
+    db.query(
+      'SELECT * FROM users WHERE username = ? AND password = ?',
+      [username, password],
+      (err, results) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ message: 'Erro no servidor' });
+        } else if (results.length === 0) {
+          res.status(401).json({ message: 'Credenciais inválidas' });
+        } else {
+          res.json({ message: 'Login bem-sucedido' });
+        }
       }
-    }
-  );
-});
+    );
+  });
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
