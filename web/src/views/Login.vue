@@ -61,13 +61,12 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url(../assets/img/polygon-scatter-haikei.svg);
   overflow: hidden;
 }
 
 
 .form-container {
-  width: 300px;
+  width: 400px;
   background: linear-gradient(180deg, rgb(13, 27, 64) 25%, rgb(255, 255, 255) 20%);
   height: 400px;
   display: flex;
