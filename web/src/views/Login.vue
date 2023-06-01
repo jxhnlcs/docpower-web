@@ -28,7 +28,7 @@ export default{
   methods: {
     login() {
       // Consulta ao servidor
-      fetch('/login', {
+      fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

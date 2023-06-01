@@ -4,6 +4,9 @@ const mysql = require('mysql2');
 const app = express();
 const port = 3000;
 
+// Middleware para analisar o corpo da solicitação como JSON
+app.use(express.json());
+
 // Configurações do banco de dados
 const db = mysql.createConnection({
   host: 'database.c6wxwix91xtq.us-east-2.rds.amazonaws.com',
@@ -31,7 +34,7 @@ app.post('/login', (req, res) => {
         }
       }
     );
-  });
+});
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
