@@ -39,7 +39,7 @@ export default {
         .then(response => {
           if (response.ok) {
             // Redirecionar para a tela Home
-            this.$router.push('/home');
+            this.$router.push('/cadastroCliente');
           } else {
             // Exibir mensagem de erro
             alert('Credenciais inválidas');

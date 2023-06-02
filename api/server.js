@@ -46,6 +46,22 @@ app.post('/login', (req, res) => {
   );
 });
 
+// Rota para cadastrar cliente
+app.post('/clientes', (req, res) => {
+  const cliente = req.body;
+
+  // Consulta ao banco de dados para inserir o cliente
+  db.query('INSERT INTO cliente SET ?', cliente, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.status(201).json({ message: 'Cliente cadastrado com sucesso' });
+    }
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
 });

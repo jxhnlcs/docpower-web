@@ -9,8 +9,8 @@ export default createRouter({
     },
 
     {
-      path: '/home',
-      component: () => import('../views/Home.vue'),
+      path: '/cadastroCliente',
+      component: () => import('../views/cadastroCliente.vue'),
     },
   ],
 })

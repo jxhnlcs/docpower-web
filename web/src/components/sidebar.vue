@@ -146,4 +146,37 @@ body.active .wrapper .section {
     margin-left: 0;
     width: 100%;
 }
+
+@media (max-width: 767px) {
+    .wrapper .sidebar .profile img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .wrapper .sidebar .profile h3 {
+      font-size: 14px;
+    }
+
+    .wrapper .sidebar ul li a .icon {
+      display: block;
+    }
+
+    .wrapper .sidebar ul li a .item {
+      display: none;
+    }
+
+    .wrapper .sidebar {
+        width: 80px;
+    }
+
+    .wrapper .section {
+        width: calc(100% - 80px);
+        margin-left: 80px;
+        transition: all 0.5s ease;
+    }
+
+    body.active .wrapper .sidebar {
+        left: -80px;
+    }
+  }
 </style>
