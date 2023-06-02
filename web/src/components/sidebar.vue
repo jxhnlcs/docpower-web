@@ -16,13 +16,13 @@
             </div>
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="#" @click="goToCliente">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">Cadastrar Cliente</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" @click="goToFuncionario">
                         <span class="icon"><i class="fas fa-user-tie"></i></span>
                         <span class="item">Cadastrar Funcionário</span>
                     </a>
@@ -31,6 +31,12 @@
                     <a href="#">
                         <span class="icon"><i class="fas fa-file"></i></span>
                         <span class="item">Cadastrar Documento</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" @click="sair">
+                        <span class="icon"><i class="fas fa-power-off"></i></span>
+                        <span class="item">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -45,6 +51,21 @@ export default {
         hamburger.addEventListener("click", function () {
             document.querySelector("body").classList.toggle("active");
         })
+    },
+
+    methods:{
+        sair() {
+            if (confirm("Deseja realmente sair?")) {
+                // Redirecionar para a tela de login
+                window.location.href = "/";
+            }
+        },
+        goToCliente() {
+            this.$router.push('/cadastroCliente');
+        },
+        goToFuncionario() {
+            this.$router.push('/cadastroFuncionario');
+        },
     }
 }
 </script>

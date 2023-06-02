@@ -12,5 +12,10 @@ export default createRouter({
       path: '/cadastroCliente',
       component: () => import('../views/cadastroCliente.vue'),
     },
+
+    {
+      path: '/cadastroFuncionario',
+      component: () => import('../views/cadastroFuncionario.vue'),
+    },
   ],
 })

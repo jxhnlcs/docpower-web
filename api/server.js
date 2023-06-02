@@ -65,7 +65,6 @@ app.get('/clientes', (req, res) => {
   );
 });
 
-
 // Rota para cadastrar cliente
 app.post('/clientes', (req, res) => {
   const cliente = req.body;
@@ -81,6 +80,36 @@ app.post('/clientes', (req, res) => {
   });
 });
 
+// Rota para verificar se o CPF já está cadastrado
+app.get('/funcionarios', (req, res) => {
+  const { cpf } = req.query;
+
+  // Consulta ao banco de dados
+  db.query('SELECT * FROM funcionario WHERE cpf = ?', [cpf], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+// Rota para cadastrar funcionário
+app.post('/funcionarios', (req, res) => {
+  const funcionario = req.body;
+
+  // Inserir o funcionário na tabela 'funcionario'
+  db.query('INSERT INTO funcionario SET ?', funcionario, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.status(201).json({ message: 'Funcionário cadastrado com sucesso' });
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
