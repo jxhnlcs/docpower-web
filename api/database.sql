@@ -6,3 +6,29 @@ CREATE TABLE users (
 
 INSERT INTO users (username, password)
 VALUES ('admin', '123');
+
+CREATE TABLE cliente (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  dataNascimento DATE NOT NULL,
+  cpf VARCHAR(255) NOT NULL,
+  filiacao VARCHAR(255) NOT NULL,
+  cep VARCHAR(255) NOT NULL,
+  estadoCivil VARCHAR(255) NOT NULL,
+  dependentes VARCHAR(255) NOT NULL,
+  empresa VARCHAR(255) NOT NULL,
+  cnpj VARCHAR(255) NOT NULL,
+  socio VARCHAR(255) NOT NULL,
+  endereco VARCHAR(255) NOT NULL,
+  cepEndereco VARCHAR(255) NOT NULL,
+  crmPJ VARCHAR(255) NOT NULL,
+  crmPF VARCHAR(255) NOT NULL,
+  vinculosPJ VARCHAR(255) NOT NULL,
+  vinculosPF VARCHAR(255) NOT NULL,
+  senhaGov VARCHAR(255) NOT NULL,
+  contribuiINSS BOOLEAN NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  telefone VARCHAR(255) NOT NULL,
+  instagram VARCHAR(255) NOT NULL,
+  facebook VARCHAR(255) NOT NULL
+);
