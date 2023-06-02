@@ -80,19 +80,23 @@ app.post('/clientes', (req, res) => {
   });
 });
 
-// Rota para verificar se o CPF já está cadastrado
+// Rota para verificar se o CPF ou RG já estão cadastrados
 app.get('/funcionarios', (req, res) => {
-  const { cpf } = req.query;
+  const { cpf, rg } = req.query;
 
   // Consulta ao banco de dados
-  db.query('SELECT * FROM funcionario WHERE cpf = ?', [cpf], (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Erro no servidor' });
-    } else {
-      res.json(results);
+  db.query(
+    'SELECT * FROM funcionario WHERE cpf = ? OR rg = ?',
+    [cpf, rg],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erro no servidor' });
+      } else {
+        res.json(results);
+      }
     }
-  });
+  );
 });
 
 

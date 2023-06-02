@@ -54,37 +54,37 @@
 
     methods: {
         cadastrarFuncionario() {
-            // Verificar se já existe um funcionário com o mesmo CPF cadastrado
-            fetch(`http://localhost:3000/funcionarios?cpf=${this.funcionario.cpf}`)
+        // Verificar se já existe um funcionário com o mesmo CPF ou RG cadastrado
+        fetch(`http://localhost:3000/funcionarios?cpf=${this.funcionario.cpf}&rg=${this.funcionario.rg}`)
             .then(response => response.json())
             .then(data => {
-                if (data.length > 0) {
-                alert('CPF já cadastrado');
-                } else {
-                // Realizar o cadastro se o CPF não estiver cadastrado
+            if (data.length > 0) {
+                alert('CPF ou RG já cadastrados');
+            } else {
+                // Realizar o cadastro se o CPF e RG não estiverem cadastrados
                 fetch('http://localhost:3000/funcionarios', {
-                    method: 'POST',
-                    headers: {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(this.funcionario)
+                },
+                body: JSON.stringify(this.funcionario)
                 })
-                    .then(response => {
+                .then(response => {
                     if (response.ok) {
-                        alert('Funcionário cadastrado com sucesso');
-                        this.funcionario = {}; // Limpar campos do formulário
+                    alert('Funcionário cadastrado com sucesso');
+                    this.funcionario = {}; // Limpar campos do formulário
                     } else {
-                        alert('Erro ao cadastrar funcionário');
-                        // Lidar com o erro de acordo com a necessidade
+                    alert('Erro ao cadastrar funcionário');
+                    // Lidar com o erro de acordo com a necessidade
                     }
-                    })
-                    .catch(error => {
+                })
+                .catch(error => {
                     alert('Erro na requisição:', error);
-                    });
-                }
+                });
+            }
             })
             .catch(error => {
-                alert('Erro na requisição:', error);
+            alert('Erro na requisição:', error);
             });
         }
     }
