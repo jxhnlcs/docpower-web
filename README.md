@@ -2,6 +2,8 @@
 
 Sistema web de gestão de clientes, funcionários e documentos para a empresa Tecer
 
+# Como rodar o sistema
+
 ##### :game_die: Banco de Dados
 
 - É nescessario preencher os campos do banco de dados para ter acesso à AWS dentro do arquivo server.js na pasta API:
