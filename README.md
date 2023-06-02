@@ -11,10 +11,10 @@ Sistema web de gestão de clientes, funcionários e documentos para a empresa Te
 ```shell
 // Configurações do banco de dados
 const db = mysql.createConnection({
-  host: '',
-  user: '',
-  password: '',
-  database: '',
+  host: 'database.c6wxwix91xtq.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'admin123',
+  database: 'database',
 });
 ```
 
