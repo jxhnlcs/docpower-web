@@ -46,6 +46,26 @@ app.post('/login', (req, res) => {
   );
 });
 
+// Rota para verificar se o CPF ou CNPJ já estão cadastrados
+app.get('/clientes', (req, res) => {
+  const { cpf, cnpj } = req.query;
+
+  // Consulta ao banco de dados
+  db.query(
+    'SELECT * FROM cliente WHERE cpf = ? OR cnpj = ?',
+    [cpf, cnpj],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erro no servidor' });
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+
+
 // Rota para cadastrar cliente
 app.post('/clientes', (req, res) => {
   const cliente = req.body;

@@ -113,20 +113,38 @@
 
     methods: {
         cadastrarCliente() {
-        fetch('http://localhost:3000/clientes', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.cliente)
-        })
-            .then(response => {
-            if (response.ok) {
-                alert('Cliente cadastrado com sucesso');
-                this.cliente = {}; // Limpar campos do formulário
+        // Verificar se já existe um CPF ou CNPJ cadastrado
+        fetch(`http://localhost:3000/clientes?cpf=${this.cliente.cpf}&cnpj=${this.cliente.cnpj}`)
+            .then(response => response.json())
+            .then(data => {
+            if (data.length > 0) {
+                if (data.some(cliente => cliente.cpf === this.cliente.cpf)) {
+                alert('CPF já cadastrado');
+                }
+                if (data.some(cliente => cliente.cnpj === this.cliente.cnpj)) {
+                alert('CNPJ já cadastrado');
+                }
             } else {
-                alert('Erro ao cadastrar cliente');
-                // lidar com o erro de acordo com a necessidade
+                // Realizar o cadastro se o CPF e CNPJ não estiverem cadastrados
+                fetch('http://localhost:3000/clientes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.cliente)
+                })
+                .then(response => {
+                    if (response.ok) {
+                    alert('Cliente cadastrado com sucesso');
+                    this.cliente = {}; // Limpar campos do formulário
+                    } else {
+                    alert('Erro ao cadastrar cliente');
+                    // Lidar com o erro de acordo com a necessidade
+                    }
+                })
+                .catch(error => {
+                    alert('Erro na requisição:', error);
+                });
             }
             })
             .catch(error => {
