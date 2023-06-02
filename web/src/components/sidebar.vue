@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" @click="goToDocumento">
                         <span class="icon"><i class="fas fa-file"></i></span>
                         <span class="item">Cadastrar Documento</span>
                     </a>
@@ -60,11 +60,17 @@ export default {
                 window.location.href = "/";
             }
         },
+
         goToCliente() {
             this.$router.push('/cadastroCliente');
         },
+
         goToFuncionario() {
             this.$router.push('/cadastroFuncionario');
+        },
+
+        goToDocumento() {
+            this.$router.push('/cadastroDocumento');
         },
     }
 }
