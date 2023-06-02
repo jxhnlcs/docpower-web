@@ -1,6 +1,6 @@
 # Sistema Tecer Gestão
 
-Sistema web de gestão de cliente, funcionários e documentos para a empresa Tecer
+Sistema web de gestão de clientes, funcionários e documentos para a empresa Tecer
 
 ##### :game_die: Banco de Dados
 
