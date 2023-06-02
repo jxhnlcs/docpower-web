@@ -2,6 +2,7 @@
     <div>
       <sidebar/>
       <form class="form-container" @submit.prevent="cadastrarCliente">
+        <h1>Cadastro de cliente</h1>
 
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" v-model="cliente.nome" required>
@@ -14,6 +15,9 @@
   
         <label for="filiacao">Filiação:</label>
         <input type="text" id="filiacao" name="filiacao" v-model="cliente.filiacao">
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" v-model="cliente.endereco" required>
   
         <label for="cep">CEP:</label>
         <input type="text" id="cep" name="cep" v-model="cliente.cep" required>
@@ -33,11 +37,11 @@
         <label for="socio">Sócio:</label>
         <input type="text" id="socio" name="socio" v-model="cliente.socio">
   
-        <label for="endereco">Endereço:</label>
-        <input type="text" id="endereco" name="endereco" v-model="cliente.endereco" required>
+        <label for="endereco">Endereço da Empresa:</label>
+        <input type="text" id="enderecoEmpresa" name="enderecoEmpresa" v-model="cliente.enderecoEmpresa" required>
   
-        <label for="cepEndereco">CEP do Endereço:</label>
-        <input type="text" id="cepEndereco" name="cepEndereco" v-model="cliente.cepEndereco" required>
+        <label for="cepEnderecoEmpresa">CEP da Empresa:</label>
+        <input type="text" id="cepEnderecoEmpresa" name="cepEnderecoEmpresa" v-model="cliente.cepEnderecoEmpresa" required>
   
         <label for="crmPJ">CRM PJ:</label>
         <input type="text" id="crmPJ" name="crmPJ" v-model="cliente.crmPJ">
@@ -89,14 +93,15 @@
           dataNascimento: '',
           cpf: '',
           filiacao: '',
+          endereco: '',
           cep: '',
           estadoCivil: '',
           dependentes: '',
           empresa: '',
           cnpj: '',
           socio: '',
-          endereco: '',
-          cepEndereco: '',
+          enderecoEmpresa: '',
+          cepEnderecoEmpresa: '',
           crmPJ: '',
           crmPF: '',
           vinculosPJ: '',
