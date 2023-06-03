@@ -1,8 +1,8 @@
 <template>
     <div>
       <sidebar/>
-      <form class="form-container" @submit.prevent="cadastrarFuncionario">
-        <h1>Cadastro de funcionário</h1>
+      <form v-if="accessGranted" class="form-container" @submit.prevent="cadastrarFuncionario">
+        <h1>Cadastro de Funcionário</h1>
 
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" v-model="funcionario.nome" required>
@@ -48,12 +48,25 @@
           cargo: '',
           username: '',
           password: '',
+          accessGranted: false
         }
       };
     },
 
+    mounted() {
+      this.showAccessAlert();
+    },
+
     methods: {
-        cadastrarFuncionario() {
+      showAccessAlert() {
+        const password = prompt('Apenas o gerente/admin tem acesso a esta tela. Por favor, insira a senha de acesso:');
+        if (password === 'admin0102') {
+          this.accessGranted = true;
+        } else {
+          alert('Senha inválida. Acesso negado.');
+        }
+      },
+      cadastrarFuncionario() {
         // Verificar se já existe um funcionário com o mesmo CPF ou RG cadastrado
         fetch(`http://localhost:3000/funcionarios?cpf=${this.funcionario.cpf}&rg=${this.funcionario.rg}`)
             .then(response => response.json())

@@ -2,7 +2,7 @@
     <div>
       <sidebar/>
       <form class="form-container" @submit.prevent="cadastrarCliente">
-        <h1>Cadastro de cliente</h1>
+        <h1>Cadastro de Cliente</h1>
 
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" v-model="cliente.nome" required>
