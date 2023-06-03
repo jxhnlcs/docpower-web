@@ -106,6 +106,17 @@ cd web
 npm run dev
 ```
 
+Login e senha universal do gerente:
+```shell
+Usuário: admin
+Senha: 123
+```
+
+Senha de acesso de tela de cadastro de funcionário:
+```shell
+admin0102
+```
+
 #### ⚙️:Tecnologias
 
 - Vuejs
