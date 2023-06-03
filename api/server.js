@@ -14,6 +14,7 @@ const db = mysql.createConnection({
   user: 'admin',
   password: 'admin123',
   database: 'database',
+  multipleStatements: true
 });
 
 // Conexão com o banco de dados
@@ -111,6 +112,21 @@ app.post('/funcionarios', (req, res) => {
       res.status(500).json({ message: 'Erro no servidor' });
     } else {
       res.status(201).json({ message: 'Funcionário cadastrado com sucesso' });
+    }
+  });
+});
+
+// Rota para cadastrar documento
+app.post('/documentos', (req, res) => {
+  const documento = req.body;
+
+  // Consulta ao banco de dados para inserir o documento
+  db.query('INSERT INTO documentos SET ?', documento, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.status(201).json({ message: 'Documento cadastrado com sucesso' });
     }
   });
 });

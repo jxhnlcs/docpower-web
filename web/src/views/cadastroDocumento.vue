@@ -1,23 +1,23 @@
 <template>
     <div>
       <sidebar/>
-      <form class="form-container" @submit.prevent="cadastrarCliente">
+      <form class="form-container" @submit.prevent="cadastrarDocumento">
         <h1>Cadastro de Documento</h1>
 
-        <label for="nome">Nome do cliente:</label>
+        <label for="nome">Nome do Documento:</label>
         <input type="text" id="nome" name="nome" v-model="documento.nome" required>
         
         <label for="data">Data:</label>
         <input type="date" id="data" name="data" v-model="documento.data" required>
-  
+
         <label for="hora">Hora:</label>
         <input type="time" id="hora" name="hora" v-model="documento.hora" required>
-  
+
         <label for="categoria">Categoria:</label>
         <input type="text" id="categoria" name="categoria" v-model="documento.categoria">
 
         <label for="arquivo">Documento:</label>
-        <input type="text" id="arquivo" name="arquivo" v-model="documento.arquivo" required>
+        <input type="file" id="arquivo" name="arquivo" @change="handleFileUpload" required>
 
         <button type="submit">Enviar</button>
       </form>
@@ -39,10 +39,45 @@ export default {
         data: '',
         hora: '',
         categoria: '',
-        arquivo: '',
+        arquivo: null,
       }
     };
   },
+
+  methods: {
+    handleFileUpload(event) {
+      // Recupera o arquivo selecionado pelo usuário
+      const file = event.target.files[0];
+      this
+      .documento.arquivo = file;
+    },
+    cadastrarDocumento() {
+      // Crie uma instância de FormData para enviar o formulário com o arquivo
+      const formData = new FormData();
+      formData.append('nome', this.documento.nome);
+      formData.append('data', this.documento.data);
+      formData.append('hora', this.documento.hora);
+      formData.append('categoria', this.documento.categoria);
+      formData.append('arquivo', this.documento.arquivo);
+
+      // Envie o formulário com o arquivo para o servidor
+      fetch('http://localhost:3000/documentos', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => {
+          if (response.ok) {
+            alert('Documento cadastrado com sucesso');
+            this.documento = {}; // Limpar campos do formulário
+          } else {
+            alert('Erro ao cadastrar documento');
+          }
+        })
+        .catch(error => {
+          alert('Erro na requisição:', error);
+        });
+    }
+  }
 }
 
 </script>

@@ -11,16 +11,19 @@ export default createRouter({
     {
       path: '/cadastroCliente',
       component: () => import('../views/cadastroCliente.vue'),
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/cadastroFuncionario',
       component: () => import('../views/cadastroFuncionario.vue'),
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/cadastroDocumento',
       component: () => import('../views/cadastroDocumento.vue'),
+      meta: { requiresAuth: true }
     },
   ],
 })
