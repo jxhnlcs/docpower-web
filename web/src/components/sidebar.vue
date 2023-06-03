@@ -12,7 +12,7 @@
         <div class="sidebar">
             <div class="profile">
                 <img src="../assets/img/whiteLogo.png">
-                <h3>Admin</h3>
+                <h3>Bem-vindo</h3>
             </div>
             <ul>
                 <li>

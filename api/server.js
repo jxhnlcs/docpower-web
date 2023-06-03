@@ -31,8 +31,8 @@ app.post('/login', (req, res) => {
 
   // Consulta ao banco de dados
   db.query(
-    'SELECT * FROM users WHERE username = ? AND password = ?',
-    [username, password],
+    'SELECT username, password FROM users WHERE username = ? AND password = ? UNION SELECT username, password FROM funcionario WHERE username = ? AND password = ?',
+    [username, password, username, password],
     (err, results) => {
       if (err) {
         console.error(err);
