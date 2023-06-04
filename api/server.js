@@ -169,6 +169,46 @@ app.post('/documentos', upload.single('arquivo'), (req, res) => {
   );
 });
 
+// Rota para obter a lista de funcionários
+app.get('/obterFuncionarios', (req, res) => {
+  // Consulta ao banco de dados para obter a lista de funcionários
+  db.query('SELECT * FROM funcionario', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// Rota para obter a lista de clientes
+app.get('/obterClientes', (req, res) => {
+  // Consulta ao banco de dados para obter a lista de clientes
+  db.query('SELECT * FROM cliente', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// Rota para obter a lista de documentos
+app.get('/obterDocumentos', (req, res) => {
+  // Consulta ao banco de dados para obter a lista de documentos
+  db.query('SELECT * FROM documentos', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
 });

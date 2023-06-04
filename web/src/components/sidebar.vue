@@ -16,6 +16,12 @@
             </div>
             <ul>
                 <li>
+                    <a href="#" @click="goToHome">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Página Inicial</span>
+                    </a>
+                </li>
+                <li>
                     <a href="#" @click="goToCliente">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">Cadastrar Cliente</span>
@@ -59,6 +65,10 @@ export default {
                 // Redirecionar para a tela de login
                 window.location.href = "/";
             }
+        },
+
+        goToHome() {
+            this.$router.push('/home');
         },
 
         goToCliente() {
