@@ -1,9 +1,10 @@
 const express = require('express');
+const path = require('path');
 const mysql = require('mysql2');
 const cors = require('cors');
-const multer = require('multer');
 
 const app = express();
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const port = 3000;
 
 app.use(express.json());
@@ -131,12 +132,14 @@ app.get('/buscarClientes', (req, res) => {
   });
 });
 
+const multer = require('multer');
+
 // Configuração do Multer para salvar os arquivos no disco
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const fileName = file.fieldname + '-' + uniqueSuffix;
+    const fileName = file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
     cb(null, fileName);
   }
 });
@@ -148,10 +151,13 @@ app.post('/documentos', upload.single('arquivo'), (req, res) => {
   const documento = req.body;
   const arquivo = req.file;
 
+  // Construir o link completo para o arquivo
+  const fileLink = `${req.protocol}://${req.get('host')}/uploads/${arquivo.filename}`;
+
   // Consulta ao banco de dados para inserir o documento
   db.query(
     'INSERT INTO documentos (cliente, nome, data, hora, categoria, arquivo) VALUES (?, ?, ?, ?, ?, ?)',
-    [documento.cliente, documento.nome, documento.data, documento.hora, documento.categoria, arquivo.filename],
+    [documento.cliente, documento.nome, documento.data, documento.hora, documento.categoria, fileLink],
     (err, result) => {
       if (err) {
         console.error(err);
