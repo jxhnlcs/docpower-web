@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const multer = require('multer');
 
 const app = express();
 const port = 3000;
@@ -116,19 +117,50 @@ app.post('/funcionarios', (req, res) => {
   });
 });
 
-// Rota para cadastrar documento
-app.post('/documentos', (req, res) => {
-  const documento = req.body;
-
-  // Consulta ao banco de dados para inserir o documento
-  db.query('INSERT INTO documentos SET ?', documento, (err, result) => {
+// Rota para obter a lista de clientes
+app.get('/buscarClientes', (req, res) => {
+  // Consulta ao banco de dados para obter a lista de clientes
+  db.query('SELECT id, nome FROM cliente', (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Erro no servidor' });
     } else {
-      res.status(201).json({ message: 'Documento cadastrado com sucesso' });
+      const clientes = results.map(result => result);
+      res.json(clientes);
     }
   });
+});
+
+// Configuração do Multer para salvar os arquivos no disco
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const fileName = file.fieldname + '-' + uniqueSuffix;
+    cb(null, fileName);
+  }
+});
+
+const upload = multer({ storage });
+
+// Rota para cadastrar documento
+app.post('/documentos', upload.single('arquivo'), (req, res) => {
+  const documento = req.body;
+  const arquivo = req.file;
+
+  // Consulta ao banco de dados para inserir o documento
+  db.query(
+    'INSERT INTO documentos (cliente, nome, data, hora, categoria, arquivo) VALUES (?, ?, ?, ?, ?, ?)',
+    [documento.cliente, documento.nome, documento.data, documento.hora, documento.categoria, arquivo.filename],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erro no servidor' });
+      } else {
+        res.status(201).json({ message: 'Documento cadastrado com sucesso' });
+      }
+    }
+  );
 });
 
 app.listen(port, () => {

@@ -47,6 +47,7 @@ CREATE TABLE funcionario (
 
 CREATE TABLE documentos (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  cliente VARCHAR(255) NOT NULL,
   nome VARCHAR(255) NOT NULL,
   data DATE NOT NULL,
   hora TIME NOT NULL,
