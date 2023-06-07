@@ -308,7 +308,7 @@ export default {
                 } else {
                   Swal.fire({
                 icon: 'error',
-                title: 'Erro ao atualizar cliente',
+                title: 'Erro ao cadastrar cliente',
                 text: 'Ocorreu um erro ao cadastrar as informações do cliente.',
                 confirmButtonText: 'OK'
               });
@@ -318,7 +318,7 @@ export default {
               .catch(error => {
                 Swal.fire({
                 icon: 'error',
-                title: 'Erro ao atualizar cliente',
+                title: 'Erro ao cadastrar cliente',
                 text: 'Ocorreu um erro ao cadastrar as informações do cliente.',
                 confirmButtonText: 'OK'
               });
@@ -328,7 +328,7 @@ export default {
         .catch(error => {
           Swal.fire({
               icon: 'error',
-              title: 'Erro ao atualizar cliente',
+              title: 'Erro ao cadastrar cliente',
               text: 'Ocorreu um erro ao cadastrar as informações do cliente.',
               confirmButtonText: 'OK'
             });
