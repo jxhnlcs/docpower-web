@@ -145,6 +145,7 @@ export default {
         this.accessGranted = true;
       } else {
         alert('Senha inválida. Acesso negado.');
+        window.location.href= '/cadastroCliente'
       }
     },
     cadastrarFuncionario() {
@@ -165,20 +166,41 @@ export default {
             })
               .then(response => {
                 if (response.ok) {
-                  alert('Funcionário cadastrado com sucesso');
+                  Swal.fire({
+                  icon: 'success',
+                  title: 'Funcionário cadastrado com sucesso',
+                  text: 'As informações do funcionário foram cadastradas com sucesso.',
+                  confirmButtonText: 'OK'
+                });
                   this.funcionario = {}; // Limpar campos do formulário
+                  $('#exampleModalToggle2').modal('hide');
                 } else {
-                  alert('Erro ao cadastrar funcionário');
+                  Swal.fire({
+                  icon: 'error',
+                  title: 'Erro ao cadastrar funcionário',
+                  text: 'Ocorreu um erro ao cadastrar o funcionário.',
+                  confirmButtonText: 'OK'
+                });
                   // Lidar com o erro de acordo com a necessidade
                 }
               })
               .catch(error => {
-                alert('Erro na requisição:', error);
+                Swal.fire({
+                icon: 'error',
+                title: 'Erro ao cadastrar funcionário',
+                text: 'Ocorreu um erro ao cadastrar o funcionário.',
+                confirmButtonText: 'OK'
+              });
               });
           }
         })
         .catch(error => {
-          alert('Erro na requisição:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao cadastrar documento',
+            text: 'Ocorreu um erro ao atualizar o documento.',
+            confirmButtonText: 'OK'
+          });
         });
     },
     async deletarFuncionario(id) {
@@ -234,7 +256,12 @@ export default {
         })
           .then(response => {
             if (response.ok) {
-              alert('Funcionario atualizado com sucesso');
+              Swal.fire({
+                icon: 'success',
+                title: 'Funcionário atualizado com sucesso',
+                text: 'As informações do funcionário foram atualizadas com sucesso.',
+                confirmButtonText: 'OK'
+              });
               this.funcionario = []; // Limpar campos do formulário
               $('#exampleModalToggle2').modal('hide');
               this.obterFuncionario();

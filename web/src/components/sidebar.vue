@@ -16,34 +16,36 @@
             </div>
             <ul>
                 <li>
-                    <a href="#" @click="goToHome">
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Página Inicial</span>
-                    </a>
+                    <router-link to="/cadastroCliente">
+                        <a href="#">
+                            <span class="icon"><i class="fas fa-user-friends"></i></span>
+                            <span class="item">Cadastrar Cliente</span>
+                        </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" @click="goToCliente">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">Cadastrar Cliente</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" @click="goToFuncionario">
+                    <router-link to="/cadastroFuncionario">
+                    <a href="#">
                         <span class="icon"><i class="fas fa-user-tie"></i></span>
                         <span class="item">Cadastrar Funcionário</span>
                     </a>
+                </router-link>
                 </li>
                 <li>
-                    <a href="#" @click="goToDocumento">
+                <router-link to="/cadastroDocumento">
+                    <a href="#">
                         <span class="icon"><i class="fas fa-file"></i></span>
                         <span class="item">Cadastrar Documento</span>
                     </a>
+                </router-link>
                 </li>
                 <li>
-                    <a href="#" @click="sair">
-                        <span class="icon"><i class="fas fa-power-off"></i></span>
-                        <span class="item">Sair</span>
-                    </a>
+                    <router-link to="">
+                        <a href="#" @click="sair">
+                            <span class="icon"><i class="fas fa-power-off"></i></span>
+                            <span class="item">Sair</span>
+                        </a>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -51,6 +53,7 @@
 </template>
 
 <script>
+
 export default {
     mounted() {
         var hamburger = document.querySelector(".hamburger");
@@ -75,23 +78,7 @@ export default {
             }
             });
         },
-
-        goToHome() {
-            this.$router.push('/home');
-        },
-
-        goToCliente() {
-            this.$router.push('/cadastroCliente');
-        },
-
-        goToFuncionario() {
-            this.$router.push('/cadastroFuncionario');
-        },
-
-        goToDocumento() {
-            this.$router.push('/cadastroDocumento');
-        },
-    }
+    },
 }
 </script>
 
@@ -132,8 +119,9 @@ export default {
 }
 
 .wrapper .sidebar ul li a {
+    text-align: justify;
     display: block;
-    padding: 20px 30px;
+    padding: 12px 10px;
     color: rgb(241, 237, 237);
     font-size: 16px;
     position: relative;
@@ -146,18 +134,14 @@ export default {
     width: 30px;
     display: inline-block;
 }
-
-
-
 .wrapper .sidebar ul li a:hover,
-.wrapper .sidebar ul li a.active {
-    transition: 0.5s;
+.wrapper .sidebar ul li:hover{
     color: #0D1B40;
     background: white;
 }
 
-.wrapper .sidebar ul li a:hover .icon,
-.wrapper .sidebar ul li a.active .icon {
+.wrapper .sidebar ul li:hover .icon,
+.wrapper .sidebar ul li a:hover {
     color: #0D1B40;
 }
 

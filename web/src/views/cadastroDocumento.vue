@@ -146,16 +146,31 @@ export default {
       })
         .then(response => {
           if (response.ok) {
-            alert('Documento cadastrado com sucesso');
+            Swal.fire({
+            icon: 'success',
+            title: 'Documento cadastrado com sucesso',
+            text: 'O documento do cliente foi salvo no banco de dados.',
+            confirmButtonText: 'OK'
+          });
             this.documento = []; // Limpar campos do formulário
             $('#exampleModal').modal('hide');
             this.obterDocumentos();
           } else {
-            alert('Erro ao cadastrar documento');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao cadastrar documento',
+                text: 'Ocorreu um erro ao cadastrar as informações do documento.',
+                confirmButtonText: 'OK'
+              });
           }
         })
         .catch(error => {
-          alert('Erro na requisição:', error);
+        Swal.fire({
+              icon: 'error',
+              title: 'Erro ao cadastrar documento',
+              text: 'Ocorreu um erro ao cadastrar as informações do documento.',
+              confirmButtonText: 'OK'
+            });
         });
     },
     async deletarDoc(id) {
@@ -178,12 +193,22 @@ export default {
               Swal.fire("", "Documento deletado com sucesso", "success");
               this.obterDocumentos();
             } else {
-              console.error('Erro ao apagar o documento:', response.statusText);
+              Swal.fire({
+                icon: 'error',
+                title: 'Erro ao deletar documento',
+                text: 'Ocorreu um erro ao deletar o documento.',
+                confirmButtonText: 'OK'
+              });
             }
           })
         }
       } catch (error) {
-        console.error("Erro ao deletar o documento: ", error);
+        Swal.fire({
+        icon: 'error',
+        title: 'Erro ao deletar documento',
+        text: 'Ocorreu um erro ao deletar o documento.',
+        confirmButtonText: 'OK'
+      });
       }
     },
     async obterDocumentoPorId(id) {
@@ -210,17 +235,32 @@ export default {
       })
         .then(response => {
           if (response.ok) {
-            alert('Documento atualizado com sucesso');
+            Swal.fire({
+            icon: 'success',
+            title: 'Documento atualizado com sucesso',
+            text: 'O documento do cliente foi atualizado com sucesso.',
+            confirmButtonText: 'OK'
+          });
             this.documento = []; // Limpar campos do formulário
             $('#exampleModal').modal('hide');
             this.obterDocumentos();
           } else {
-            alert('Erro ao atualizar documento');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao atualizar documento',
+                text: 'Ocorreu um erro ao atualizar o documento.',
+                confirmButtonText: 'OK'
+              });
             // Lidar com o erro de acordo com a necessidade
           }
         })
         .catch(error => {
-          alert('Erro na requisição:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao deletar documento',
+            text: 'Ocorreu um erro ao deletar o documento.',
+            confirmButtonText: 'OK'
+          });
         });
     },
     async obterCategorias(){

@@ -307,11 +307,11 @@ export default {
                   this.obterClientes();
                 } else {
                   Swal.fire({
-                icon: 'error',
-                title: 'Erro ao cadastrar cliente',
-                text: 'Ocorreu um erro ao cadastrar as informações do cliente.',
-                confirmButtonText: 'OK'
-              });
+                  icon: 'error',
+                  title: 'Erro ao cadastrar cliente',
+                  text: 'Ocorreu um erro ao cadastrar as informações do cliente.',
+                  confirmButtonText: 'OK'
+                });
                   // Lidar com o erro de acordo com a necessidade
                 }
               })
@@ -364,7 +364,12 @@ export default {
             }
           })
           .catch(error => {
-            alert('Erro na requisição:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Erro ao atualizar cliente',
+              text: 'Ocorreu um erro ao atualizar as informações do cliente.',
+              confirmButtonText: 'OK'
+            });
           });
     },
     async obterClientes() {
