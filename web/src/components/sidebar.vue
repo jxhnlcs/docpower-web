@@ -61,10 +61,19 @@ export default {
 
     methods:{
         sair() {
-            if (confirm("Deseja realmente sair?")) {
-                // Redirecionar para a tela de login
-                window.location.href = "/";
+            Swal.fire({
+            icon: 'question',
+            title: 'Deseja realmente sair?',
+            text: 'Você será desconectado da sua conta.',
+            showCancelButton: true,
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Realizar logout ou redirecionar para a tela de logout
+                this.$router.push('/');
             }
+            });
         },
 
         goToHome() {
@@ -101,6 +110,7 @@ export default {
     height: 100%;
     padding: 20px 0;
     transition: all 0.5s ease;
+    z-index: 10;
 }
 
 .wrapper .sidebar .profile {
@@ -128,6 +138,7 @@ export default {
     font-size: 16px;
     position: relative;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .wrapper .sidebar ul li a .icon {

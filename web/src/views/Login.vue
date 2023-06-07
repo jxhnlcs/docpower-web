@@ -42,7 +42,12 @@ export default {
             this.$router.push('/cadastroCliente');
           } else {
             // Exibir mensagem de erro
-            alert('Credenciais inválidas');
+            Swal.fire({
+            icon: 'error',
+            title: 'Credenciais inválidas',
+            text: 'Por favor, verifique suas credenciais e tente novamente.',
+            confirmButtonText: 'OK'
+          });
           }
         })
         .catch(error => {

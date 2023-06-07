@@ -12,7 +12,7 @@ app.use(cors());
 
 // Configurações do banco de dados
 const db = mysql.createConnection({
-  host: 'database.c6wxwix91xtq.us-east-2.rds.amazonaws.com',
+  host: 'database.ctk3skro8xoh.us-east-2.rds.amazonaws.com',
   user: 'admin',
   password: 'admin123',
   database: 'database',
@@ -156,7 +156,7 @@ app.post('/documentos', upload.single('arquivo'), (req, res) => {
 
   // Consulta ao banco de dados para inserir o documento
   db.query(
-    'INSERT INTO documentos (cliente, nome, data, hora, categoria, arquivo) VALUES (?, ?, ?, ?, ?, ?)',
+    'INSERT INTO documentos (cliente_id, nome, data, hora, categoria_id, arquivo) VALUES (?, ?, ?, ?, ?, ?)',
     [documento.cliente, documento.nome, documento.data, documento.hora, documento.categoria, fileLink],
     (err, result) => {
       if (err) {
@@ -177,7 +177,8 @@ app.get('/obterFuncionarios', (req, res) => {
       console.error(err);
       res.status(500).json({ message: 'Erro no servidor' });
     } else {
-      res.json(results);
+      const funcionarios = results.map(result => result);
+      res.json(funcionarios);
     }
   });
 });
@@ -190,7 +191,8 @@ app.get('/obterClientes', (req, res) => {
       console.error(err);
       res.status(500).json({ message: 'Erro no servidor' });
     } else {
-      res.json(results);
+      const clientes = results.map(result => result);
+      res.json(clientes);
     }
   });
 });
@@ -198,16 +200,167 @@ app.get('/obterClientes', (req, res) => {
 // Rota para obter a lista de documentos
 app.get('/obterDocumentos', (req, res) => {
   // Consulta ao banco de dados para obter a lista de documentos
-  db.query('SELECT * FROM documentos', (err, results) => {
+  db.query('SELECT documentos.*, cliente.nome AS nome_cliente, categorias.nome AS nome_categoria FROM documentos JOIN cliente ON documentos.cliente_id = cliente.id JOIN categorias ON documentos.categoria_id = categorias.id;', (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Erro no servidor' });
     } else {
-      res.json(results);
+      const documentos = results.map(result => result);
+      res.json(documentos);
     }
   });
 });
 
+app.get('/obterCategorias', (req, res) => {
+  // Consulta ao banco de dados para obter a lista de documentos
+  db.query('SELECT * FROM categorias;', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      const categoria = results.map(result => result);
+      res.json(categoria);
+    }
+  });
+});
+
+app.get('/obterDocumentosById/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query('SELECT * FROM documentos WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      if (results.length === 0) {
+        res.status(404).json({ message: 'Documento não encontrado' });
+      } else {
+        const documento = results[0];
+        res.json(documento);
+      }
+    }
+  });
+});
+
+app.get('/obterClienteById/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query('SELECT * FROM cliente WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      if (results.length === 0) {
+        res.status(404).json({ message: 'Cliente não encontrado' });
+      } else {
+        const documento = results[0];
+        res.json(documento);
+      }
+    }
+  });
+});
+
+app.get('/obterFuncionarioById/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query('SELECT * FROM funcionario WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      if (results.length === 0) {
+        res.status(404).json({ message: 'Funcionario não encontrado' });
+      } else {
+        const funcionario = results[0];
+        res.json(funcionario);
+      }
+    }
+  });
+});
+
+app.delete('/deletarCliente/:id', (req, res) => {
+  const clienteId = req.params.id;
+
+  db.query('DELETE FROM cliente WHERE id = ?', [clienteId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json({ message: 'Cliente excluído com sucesso' });
+    }
+  });
+});
+
+app.delete('/deletarDoc/:id', (req, res) => {
+  const clienteId = req.params.id;
+
+  db.query('DELETE FROM documentos WHERE id = ?', [clienteId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json({ message: 'Documento excluído com sucesso' });
+    }
+  });
+});
+
+app.delete('/deletarFuncionario/:id', (req, res) => {
+  const clienteId = req.params.id;
+
+  db.query('DELETE FROM funcionario WHERE id = ?', [clienteId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.json({ message: 'Funcionario excluído com sucesso' });
+    }
+  });
+});
+
+app.put('/editarCliente/:id', (req, res) => {
+  const clienteId = req.params.id;
+  const cliente = req.body;
+
+  // Consulta ao banco de dados para atualizar o cliente com o ID fornecido
+  db.query('UPDATE cliente SET ? WHERE id = ?', [cliente, clienteId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.status(200).json({ message: 'Cliente atualizado com sucesso' });
+    }
+  });
+});
+
+app.put('/editarFuncionario/:id', (req, res) => {
+  const funcionarioId = req.params.id;
+  const funcionario = req.body;
+
+  // Consulta ao banco de dados para atualizar o cliente com o ID fornecido
+  db.query('UPDATE funcionario SET ? WHERE id = ?', [funcionario, funcionarioId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.status(200).json({ message: 'Funcionário atualizado com sucesso' });
+    }
+  });
+});
+
+app.put('/editarDoc/:id', (req, res) => {
+  const docId = req.params.id;
+  const doc = req.body;
+
+  // Consulta ao banco de dados para atualizar o cliente com o ID fornecido
+  db.query('UPDATE documentos SET ? WHERE id = ?', [doc, docId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro no servidor' });
+    } else {
+      res.status(200).json({ message: 'Documento atualizado com sucesso' });
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
