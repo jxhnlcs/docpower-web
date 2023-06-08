@@ -53,7 +53,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-bs-target="#exampleModalToggle2"
-                data-bs-toggle="modal">próximo <i class="fa-solid fa-arrow-right"></i></button>
+                data-bs-toggle="modal">Próximo <i class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </div>

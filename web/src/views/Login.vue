@@ -92,7 +92,7 @@ export default {
 
 .form-container p {
   position: absolute;
-  top: 1%;
+  top: 7%;
   font-size: 30px;
   font-weight: 900;
   color: rgb(255, 255, 255);
@@ -108,7 +108,7 @@ export default {
 
 .form-container .input {
   padding: 10px;
-  height: 35px;
+  height: 50px;
   border: none;
   background-color: rgb(224, 231, 236);
   border-radius: 15px;

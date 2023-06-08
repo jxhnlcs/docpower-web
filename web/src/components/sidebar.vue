@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" >
         <div class="section">
             <div class="top_navbar">
                 <div class="hamburger">
@@ -55,6 +55,7 @@
 <script>
 
 export default {
+
     mounted() {
         var hamburger = document.querySelector(".hamburger");
         hamburger.addEventListener("click", function () {
@@ -189,8 +190,12 @@ body.active .wrapper .section {
       font-size: 14px;
     }
 
+    .profile h3{
+        display: none;
+    }
+
     .wrapper .sidebar ul li a .icon {
-      display: block;
+      text-align: center;
     }
 
     .wrapper .sidebar ul li a .item {

@@ -49,7 +49,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-bs-target="#exampleModalToggle2"
-                data-bs-toggle="modal">próximo <i class="fa-solid fa-arrow-right"></i></button>
+                data-bs-toggle="modal">Próximo <i class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
@@ -140,13 +140,29 @@ export default {
         });
     },
     showAccessAlert() {
-      const password = prompt('Apenas o gerente/admin tem acesso a esta tela. Por favor, insira a senha de acesso:');
-      if (password === 'admin0102') {
-        this.accessGranted = true;
-      } else {
-        alert('Senha inválida. Acesso negado.');
-        window.location.href= '/cadastroCliente'
-      }
+      Swal.fire({
+        title: 'Acesso restrito',
+        text: 'Apenas o gerente/admin tem acesso a esta tela. Por favor, insira a senha de acesso:',
+        input: 'password',
+        showCancelButton: true,
+        confirmButtonText: 'Acessar',
+        cancelButtonText: 'Cancelar',
+        allowOutsideClick: false,
+        inputValidator: (value) => {
+          if (value === 'admin0102') {
+            this.accessGranted = true;
+          } else {
+            Swal.fire({
+              title: 'Acesso negado',
+              text: 'Senha inválida. Acesso negado.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              window.location.href = '/cadastroCliente';
+            });
+          }
+        }
+      });
     },
     cadastrarFuncionario() {
       // Verificar se já existe um funcionário com o mesmo CPF ou RG cadastrado
