@@ -29,52 +29,77 @@ Database:
 
 - Após estabelecer a conexão com o banco de dados, rode os seguintes comandos no script do gerenciador de banco de dados para criar as tabelas:
 ```shell
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL,
-  password VARCHAR(50) NOT NULL
-);
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO users (username, password)
 VALUES ('admin', '123');
 
-CREATE TABLE cliente (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  dataNascimento DATE NOT NULL,
-  cpf VARCHAR(14) NOT NULL,
-  filiacao VARCHAR(255),
-  endereco VARCHAR(255) NOT NULL,
-  cep VARCHAR(9) NOT NULL,
-  estadoCivil VARCHAR(50) NOT NULL,
-  dependentes VARCHAR(255),
-  empresa VARCHAR(255) NOT NULL,
-  cnpj VARCHAR(18) NOT NULL,
-  socio VARCHAR(255),
-  enderecoEmpresa VARCHAR(255) NOT NULL,
-  cepEnderecoEmpresa VARCHAR(9) NOT NULL,
-  crmPJ VARCHAR(255),
-  crmPF VARCHAR(255),
-  vinculosPJ VARCHAR(255),
-  vinculosPF VARCHAR(255),
-  senhaGov VARCHAR(255),
-  contribuiINSS BOOLEAN,
-  email VARCHAR(255) NOT NULL,
-  telefone VARCHAR(20) NOT NULL,
-  instagram VARCHAR(255),
-  facebook VARCHAR(255)
-);
+CREATE TABLE `cliente` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `dataNascimento` date NOT NULL,
+  `cpf` varchar(14) NOT NULL,
+  `filiacao` varchar(255) DEFAULT NULL,
+  `endereco` varchar(255) NOT NULL,
+  `cep` varchar(9) NOT NULL,
+  `estadoCivil` varchar(50) NOT NULL,
+  `dependentes` varchar(255) DEFAULT NULL,
+  `empresa` varchar(255) NOT NULL,
+  `cnpj` varchar(18) NOT NULL,
+  `socio` varchar(255) DEFAULT NULL,
+  `enderecoEmpresa` varchar(255) NOT NULL,
+  `cepEnderecoEmpresa` varchar(9) NOT NULL,
+  `crmPJ` varchar(255) DEFAULT NULL,
+  `crmPF` varchar(255) DEFAULT NULL,
+  `vinculosPJ` varchar(255) DEFAULT NULL,
+  `vinculosPF` varchar(255) DEFAULT NULL,
+  `senhaGov` varchar(255) DEFAULT NULL,
+  `contribuiINSS` tinyint(1) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `senha` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE funcionario (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  dataNascimento DATE NOT NULL,
-  cpf VARCHAR(14) NOT NULL,
-  rg VARCHAR(20) NOT NULL,
-  cargo VARCHAR(255) NOT NULL,
-  username VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL
-);
+CREATE TABLE `categorias` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `documentos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cliente_id` int NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `data` date NOT NULL,
+  `hora` time NOT NULL,
+  `categoria_id` int NOT NULL,
+  `arquivo` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `documentos_ibfk_1` (`cliente_id`),
+  KEY `documentos_ibfk_2_idx` (`categoria_id`),
+  CONSTRAINT `documentos_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `documentos_ibfk_2` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `funcionario` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `dataNascimento` date NOT NULL,
+  `cpf` varchar(14) NOT NULL,
+  `rg` varchar(20) NOT NULL,
+  `cargo` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ```
 
