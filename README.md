@@ -129,6 +129,10 @@ cd web
 ```
 
 ```shell
+npm i
+```
+
+```shell
 npm run dev
 ```
 
